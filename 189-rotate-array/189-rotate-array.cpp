@@ -1,13 +1,19 @@
 class Solution {
 public:
-    void rotate(vector<int>& nums, int k) {
-        //Trivial O(N) Space O(N) Time
-        vector<int> res(nums.size());
-        for(int i = 0;i<nums.size();i++)
+    void reverse(vector<int>& arr, int start, int end)
+    {
+        while(start < end)
         {
-            res[(i+k)%nums.size()] = nums[i]; 
+            swap(arr[start++], arr[end--]);
+            
         }
-        nums = res;
+    }
+    void rotate(vector<int>& nums, int k) {
+        if(nums.size()==1)
+            return;
+        reverse(nums, 0, nums.size()-1);
+        reverse(nums, 0, (k%nums.size())-1);
+        reverse(nums, k%nums.size(), nums.size()-1);
         return;
     }
 };
