@@ -1,45 +1,33 @@
 class Solution {
 public:
-    vector<int> merge(vector<int> left, vector<int> right)
-    {
-        vector<int> res = {};
-        int i = left.size()-1, j = 0;
-        while(i>=0 && j<right.size())
-        {
-            if(left[i] <= right[j])
-                res.push_back(left[i--]);
-            else
-                res.push_back(right[j++]);
-        }
-        
-        while(i>=0)
-            res.push_back(left[i--]);
-        
-        while(j<right.size())
-            res.push_back(right[j++]);
-        
-            
-        return res;
-    }
+    
     vector<int> sortedSquares(vector<int>& nums) {
-        vector<int> right;
-        vector<int> left;
         int i = 0;
-        while(i < nums.size())
-        {
-            if(nums[i] >= 0)
+        int j = nums.size()-1;
+        vector<int> res(nums.size(),0);
+       
+        for(int k = nums.size()-1;k >= 0;k--)
+        {   
+            if(i==j)
+            {
+                res[k] = nums[i]*nums[i];
                 break;
-            left.push_back(nums[i]*nums[i]);
-            i++;
-            
+            }
+           
+            int a = nums[i]*nums[i];  
+            int b = nums[j]*nums[j];
+           
+            if(a > b)
+            {
+                res[k] = a;
+                i++;
+            }
+            else
+            {
+                res[k] = b;
+                j--;
+            } 
         }
-        
-        while(i < nums.size())
-        {
-            right.push_back(nums[i]*nums[i]);
-            i++;
-        }
-        
-        return merge(left, right);
+        return res;
     }
 };
